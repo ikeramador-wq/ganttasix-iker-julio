@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diagrama de Gantt — Producción</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  
+  <div class="top-toolbar bg-panel shadow rounded">
+    
+    <div class="toolbar-left">
+      <button id="btnAdvanced" class="advanced-button" aria-expanded="false" title="Opciones avanzadas">
+        <span class="icon">⚙️</span>
+        <span>Avanzadas</span>
+      </button>
+    </div>
+
+    <div class="toolbar-right">
+      <button class="advanced-button" onclick="window.print()" title="Imprimir vista">
+        <svg width="20" height="20" fill="none" stroke="#10b981" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+        </svg>
+        <span style="color: var(--accent-600);">Imprimir</span>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="layout" role="main">
+    
+    <aside id="sidebar" class="sidebar bg-panel border-panel rounded shadow" aria-label="Centros y máquinas">
+      <div class="search-container" aria-label="Filtros">
+        <input id="filterCode" placeholder="Código" aria-label="Filtrar por código" />
+        <input id="filterDesc" placeholder="Descripción" aria-label="Filtrar por descripción" />
+      </div>
+      <div id="centersContainer" class="sidebar-scroll" aria-live="polite"></div>
+    </aside>
+
+    <section class="gantt-wrapper" aria-live="polite">
+      <div class="gantt-area">
+        <div id="timelineScroll" class="timeline-scroll bg-panel border-panel rounded shadow" tabindex="0" aria-label="Área del timeline">
+          <div id="headerDays" class="header-wrapper"></div>
+          <div class="calendar-container">
+            <div id="calendar" class="calendar" role="grid" aria-label="Calendario"></div>
+          </div>
+          <div id="timeLine" class="time-line" aria-hidden="false" title="Línea de tiempo actual"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="drawer" class="drawer bg-panel border-panel rounded shadow" role="dialog" aria-modal="false"
+    aria-hidden="true" aria-label="Opciones avanzadas">
+    
+    <div class="drawer-header">
+      <div>Configuración</div>
+      <button id="btnDrawerClose" class="btn-collapse" title="Cerrar">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="accordion" id="advAccordion">
+
+        <div class="acc-item">
+          <div class="acc-head" role="button" tabindex="0">
+            <div class="acc-title">1. General</div>
+            <div class="acc-toggle">▸</div>
+          </div>
+          <div class="acc-body">
+            <div class="form-row justify-between">
+              <label for="checkCurrentTime" class="cursor-pointer">Marcar hora actual</label>
+              <input type="checkbox" id="checkCurrentTime" checked>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="form-section-title">Colores</div>
+            <div class="form-row justify-between">
+              <label>Fondo Filas</label>
+              <input type="color" id="colBg" value="#ffffff" class="color-input">
+            </div>
+            <div class="form-row justify-between">
+              <label>Fondo Alterno</label>
+              <input type="color" id="colAlt" value="#f7fff9" class="color-input">
+            </div>
+            <div class="form-row justify-between">
+              <label>Línea Hora Actual</label>
+              <input type="color" id="colLine" value="#ff4d4d" class="color-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-head" role="button" tabindex="0">
+            <div class="acc-title">2. Fechas</div>
+            <div class="acc-toggle">▸</div>
+          </div>
+          <div class="acc-body">
+            <div class="small-muted" style="margin-bottom:8px">Seleccionar rango visual:</div>
+            <div class="form-col">
+              <label for="dateFrom">Desde:</label>
+              <input type="date" id="dateFrom" class="input-date">
+            </div>
+            <div class="form-col" style="margin-top:8px">
+              <label for="dateTo">Hasta:</label>
+              <input type="date" id="dateTo" class="input-date">
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-head" role="button" tabindex="0">
+            <div class="acc-title">3. Ver Trabajos</div>
+            <div class="acc-toggle">▸</div>
+          </div>
+          <div class="acc-body">
+            <div class="form-row">
+              <input type="checkbox" id="chkResources">
+              <label for="chkResources">Sólo recursos ocupados</label>
+            </div>
+            <div class="form-row">
+              <input type="checkbox" id="chkPreparations" checked>
+              <label for="chkPreparations">Preparaciones</label>
+            </div>
+            <div class="form-row">
+              <input type="checkbox" id="chkOperations" checked>
+              <label for="chkOperations">Operaciones</label>
+            </div>
+            <div class="form-row">
+              <input type="checkbox" id="chkAlarms">
+              <label for="chkAlarms" style="color:#ef4444">Ver alarmas</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-head" role="button" tabindex="0">
+            <div class="acc-title">4. Escala Temporal</div>
+            <div class="acc-toggle">▸</div>
+          </div>
+          <div class="acc-body">
+            <div class="scale-grid">
+              <label class="radio-card">
+                <input type="radio" name="scaleGroup" value="annual"> <span>Anual</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="scaleGroup" value="semester"> <span>Semestral</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="scaleGroup" value="quarter"> <span>Trimestral</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="scaleGroup" value="month"> <span>Mensual</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="scaleGroup" value="fortnight"> <span>Quincena</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="scaleGroup" value="weeks"> <span>Semanal</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="scaleGroup" value="days" checked> <span>Diario</span>
+              </label>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="form-col">
+              <label for="scaleStartDate">Fecha Inicio:</label>
+              <input type="date" id="scaleStartDate" class="input-date">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="tooltipPro" class="tooltip-pro" role="status" aria-live="polite"></div>
+
+  <script src="./data.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
