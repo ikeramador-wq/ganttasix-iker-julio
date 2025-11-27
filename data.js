@@ -9,7 +9,6 @@ const response = {
                 Descripcion: "Sierra",
                 Maquina: [
                     { Maquina: "MAQ001", Descripcion: "Sierra" },
-                    { Maquina: "MAQ002", Descripcion: "Sierra2" },
                     { Maquina: "MAQ003", Descripcion: "Sierra3" }
                 ]
             },
@@ -19,13 +18,6 @@ const response = {
                 Maquina: [
                     { Maquina: "MAQ009", Descripcion: "Torno" },
                     { Maquina: "MAQ010", Descripcion: "Torno2" }
-                ]
-            },
-            {
-                Centro: "05",
-                Descripcion: "Tornos Cilíndricos2",
-                Maquina: [
-                    { Maquina: "MAQ005", Descripcion: "Tornos" }
                 ]
             },
             {
@@ -44,7 +36,7 @@ const response = {
                 Articulo: "IND.A",
                 Bucket: "2025-11-04T14:14:00",
                 Centro_Trabajo: "01",
-                Codigo_Maquina: "MAQ01",
+                Codigo_Maquina: "MAQ001",
                 Descripcion: "2025/11/04 14:16:49",
                 DescripcionArticulo: "ARTICULO PRODUCTO ACABADO PRUEBAS",
                 DescripcionCentroTrabajo: "Sierra",
@@ -61,7 +53,7 @@ const response = {
                 Articulo: "IND.A",
                 Bucket: "2025-11-04T14:14:00",
                 Centro_Trabajo: "02",
-                Codigo_Maquina: "MAQ002",
+                Codigo_Maquina: "MAQ009",
                 Descripcion: "2025/11/04 14:16:49",
                 DescripcionArticulo: "ARTICULO PRODUCTO ACABADO PRUEBAS",
                 DescripcionCentroTrabajo: "Tornos Cilíndricos",
@@ -93,7 +85,7 @@ const response = {
                 Alarma: "0",
                 Articulo: "IND.B",
                 Centro_Trabajo: "01",
-                Codigo_Maquina: "MAQ01B",
+                Codigo_Maquina: "MAQ003",
                 Descripcion: "PRUEBACAMPOFECHA",
                 DescripcionArticulo: "ARTICULO SEMI ELABORADO PRUEBAS",
                 DescripcionCentroTrabajo: "Inyección",
